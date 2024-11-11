@@ -1,4 +1,9 @@
 #include <stdio.h>
+struct card
+{
+char shape;
+char num[3];
+};
 
 int main(void) {
 
