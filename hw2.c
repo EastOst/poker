@@ -12,6 +12,7 @@ void input_manual(struct card a[]) {
     for(int i=0;i<size;i++) {
         printf("%d번 카드 무늬와 숫자 : ",i+1);
         scanf("%c",&a[i].shape);
+        getchar();
         char temp[3];
         scanf("%[^\n]", temp);
         getchar();
@@ -30,6 +31,7 @@ int main(void) {
     printf("1. 직접 입력 2. 랜덤 생성 3. 종료\n");
     printf("번호를 입력하세요: ");
     scanf("%d",&menu);
+    getchar();
     struct card a[size];
     input_manual(a);
 
