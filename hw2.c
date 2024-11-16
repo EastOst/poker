@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #define size 5
 
 
@@ -272,6 +273,155 @@ void menu1() {
 }
 
 
+
+void make_random(struct card mycard[size]) {
+    
+    srand(time(NULL));
+    for (int i =0;i<size;i++) {
+        int s =rand()%4;
+        switch (s) {
+            case 0: mycard[i].shape = 'S'; break;
+            case 1: mycard[i].shape = 'D'; break;
+            case 2: mycard[i].shape = 'C'; break;
+            case 3: mycard[i].shape = 'H'; break;
+        }
+        int ran_n = rand()%13 +2;
+        if (ran_n == 2) strcpy(mycard[i].num,"2");
+        else if(ran_n == 3) strcpy(mycard[i].num,"3");
+        else if(ran_n == 4) strcpy(mycard[i].num,"4");
+        else if(ran_n == 5) strcpy(mycard[i].num,"5");
+        else if(ran_n == 6) strcpy(mycard[i].num,"6");
+        else if(ran_n == 7) strcpy(mycard[i].num,"7");
+        else if(ran_n == 8) strcpy(mycard[i].num,"8");
+        else if(ran_n == 9) strcpy(mycard[i].num,"9");
+        else if(ran_n ==10) strcpy(mycard[i].num,"10");
+        else if(ran_n == 11) strcpy(mycard[i].num,"J");
+        else if(ran_n == 12) strcpy(mycard[i].num,"Q");
+        else if(ran_n == 13) strcpy(mycard[i].num,"K");
+        else  strcpy(mycard[i].num,"A");
+    //이후 구조체 포인터째로 전달
+
+    
+        
+    }   
+}
+
+void check(int select) {
+    clock_t start_clock, end_clock, diff_clock, ex_time;
+    int count = 0;
+    struct card mycard[5];
+    make_random(mycard);
+    start_clock = clock();
+    switch (select)
+    {
+    case 1: {while (1){
+        int a = royal_straight_flush(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 2: {while (1){
+        int a = back_straight_flush(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 3: {while (1){
+        int a = straight_flush(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 4: {while (1){
+        int a = four_card(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 5: {while (1){
+        int a = full_house(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 6: {while (1){
+        int a = flush(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 7: {while (1){
+        int a = mountain(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 8: {while (1){
+        int a = back_straight(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 9: {while (1){
+        int a = straight(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 10: {while (1){
+        int a = triple(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 11: {while (1){
+        int a = two_pair(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    case 12: {while (1){
+        int a = one_pair(mycard);
+        if (a==0) {make_random(mycard); count++;}
+        else {end_clock = clock();break;}
+    }
+    break;
+    }
+    }
+
+    printf("생성된 카드: ");
+    for(int i = 0; i < 5; i++) {
+        printf("%c %s", mycard[i].shape, mycard[i].num);
+        if (i < 4) printf(", "); 
+}
+    printf("\n");
+    printf("컴퓨터로 1번 족보를 생성하기 위한 카드 생성 시도 : %d번\n",count);
+    diff_clock = end_clock - start_clock;
+    ex_time = diff_clock / CLOCKS_PER_SEC;
+    printf("생성에 걸린 시간 %lu초", ex_time);
+}
+
+void menu2() {
+    printf("1. royal_straight_flush\t2. back_straight_flush\n3. straight_flush\t4. four_card\n5. full_house\t6. flush\n7. mountain\t8. back_straight\n9. straight\t10. triple\n11. two_pair\t12. one_pair\n");
+    printf("무슨 족보를 생성할까요? ");
+    int select;
+    scanf("%d",&select);
+    check(select);
+    
+}
+
+
 int main(void) {
     int menu;
     while(1) {
@@ -281,6 +431,7 @@ int main(void) {
     getchar();
 
     if (menu == 1) menu1();
+    else if (menu==2) menu2();
     else if (menu == 3) {printf("종료\n"); break;}
     else printf("잘못 입력하셨습니다\n");
 
@@ -288,3 +439,4 @@ int main(void) {
 
     return 0;
 }
+
