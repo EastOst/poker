@@ -4,8 +4,6 @@
 #include <time.h>
 #define size 5
 
-
-
 struct card
 {
 char shape;
@@ -124,7 +122,7 @@ _Bool straight_flush(struct card mycard[]) {
         make_int_arr(num,mycard);
         sort(num,mycard);
         for(int i = 0;i<size-1;i++) {
-            if (num[i]+1!=num[i+1]+1) {
+            if (num[i]+1!=num[i+1]) {
                 a=0; break;
             }
         }
